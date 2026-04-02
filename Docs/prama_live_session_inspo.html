@@ -1,0 +1,161 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap');
+:root {
+  --cream: #FDFCF0;
+  --slate: #34495E;
+  --seafoam: #8FBC8F;
+  --seafoam-light: #E8F5E8;
+  --seafoam-dark: #5A8A5A;
+  --conflict: #E67E22;
+  --border: rgba(52,73,94,0.12);
+  --card-bg: #FFFFFF;
+  --muted: #7A8FA6;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+.ws { background: var(--cream); font-family: 'DM Sans', sans-serif; color: var(--slate); min-height: 600px; display: flex; flex-direction: column; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+.topbar { background: var(--card-bg); border-bottom: 1px solid var(--border); padding: 0 20px; height: 50px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+.logo { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; color: var(--slate); }
+.logo span { color: var(--seafoam-dark); }
+.session-badge { background: #FDECEA; color: #C0392B; font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 20px; display: flex; align-items: center; gap: 5px; }
+.rec-dot { width: 7px; height: 7px; border-radius: 50%; background: #E74C3C; }
+.topright { display: flex; align-items: center; gap: 10px; }
+.casename { font-size: 13px; color: var(--muted); }
+.content { display: flex; flex: 1; overflow: hidden; }
+
+.left-panel { width: 210px; background: var(--card-bg); border-right: 1px solid var(--border); padding: 20px 16px; flex-shrink: 0; display: flex; flex-direction: column; gap: 14px; }
+.lp-title { font-size: 10px; letter-spacing: 1px; color: var(--muted); text-transform: uppercase; font-weight: 500; margin-bottom: 10px; }
+.lp-field { margin-bottom: 12px; }
+.lp-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 3px; }
+.lp-value { font-size: 13px; color: var(--slate); font-weight: 500; }
+.lp-divider { height: 1px; background: var(--border); margin: 4px 0; }
+.witness-tag { display: inline-flex; align-items: center; gap: 5px; background: var(--seafoam-light); color: var(--seafoam-dark); font-size: 11px; padding: 4px 9px; border-radius: 20px; font-weight: 500; }
+.lp-note { font-size: 11px; color: var(--muted); line-height: 1.5; background: #F8F8F8; border-radius: 7px; padding: 10px; margin-top: 4px; }
+
+.center-feed { flex: 1; display: flex; flex-direction: column; background: var(--cream); }
+.feed-scroll { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
+.bubble { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; display: flex; gap: 10px; align-items: flex-start; }
+.bubble-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+.icon-visual { background: #EEF2FF; }
+.icon-auditory { background: #FEF9E7; }
+.icon-olfactory { background: #EAFAF1; }
+.icon-somatic { background: #FEF3E2; }
+.bubble-body { flex: 1; }
+.bubble-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.bubble-tag { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.6px; }
+.tag-visual { color: #5C6BC0; }
+.tag-auditory { color: #B7950B; }
+.tag-olfactory { color: #1E8449; }
+.tag-somatic { color: #B35900; }
+.bubble-time { font-size: 10px; color: var(--muted); }
+.bubble-text { font-size: 13px; color: var(--slate); line-height: 1.55; }
+
+.input-area { background: var(--card-bg); border-top: 1px solid var(--border); padding: 14px 20px; flex-shrink: 0; }
+.sensory-bar { display: flex; gap: 8px; margin-bottom: 10px; }
+.sensory-btn { display: flex; align-items: center; gap: 5px; padding: 5px 12px; border-radius: 20px; border: 1px solid var(--border); background: transparent; font-size: 11px; color: var(--muted); cursor: pointer; font-family: 'DM Sans', sans-serif; }
+.sensory-btn.active { background: var(--seafoam-light); color: var(--seafoam-dark); border-color: var(--seafoam); }
+.input-row { display: flex; gap: 8px; }
+.text-inp { flex: 1; border: 1px solid var(--border); border-radius: 8px; padding: 9px 14px; font-size: 13px; font-family: 'DM Sans', sans-serif; color: var(--slate); background: var(--cream); outline: none; }
+.btn-add { background: var(--seafoam); color: #fff; border: none; border-radius: 8px; padding: 0 16px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+
+.right-panel { width: 190px; background: var(--card-bg); border-left: 1px solid var(--border); padding: 20px 14px; flex-shrink: 0; display: flex; flex-direction: column; gap: 12px; }
+.rp-title { font-size: 10px; letter-spacing: 1px; color: var(--muted); text-transform: uppercase; font-weight: 500; margin-bottom: 6px; }
+.rp-count { text-align: center; background: var(--seafoam-light); border-radius: 9px; padding: 14px; margin-bottom: 10px; }
+.rp-num { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--slate); line-height: 1; }
+.rp-numlab { font-size: 10px; color: var(--muted); margin-top: 3px; }
+.rp-row { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); padding: 5px 0; border-bottom: 1px solid var(--border); }
+.rp-rowval { color: var(--slate); font-weight: 500; }
+.btn-gen { background: var(--slate); color: #fff; border: none; border-radius: 9px; padding: 14px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; width: 100%; margin-top: auto; line-height: 1.4; }
+</style>
+
+<div class="ws">
+  <div class="topbar">
+    <div class="logo">Pra<span>ma</span></div>
+    <div class="casename">Mehra v. Sharma · CASE-2024-114</div>
+    <div class="topright">
+      <div class="session-badge"><div class="rec-dot"></div> Live Session</div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="left-panel">
+      <div>
+        <div class="lp-title">Case Skeleton</div>
+        <div class="lp-field"><div class="lp-label">Client</div><div class="lp-value">Anita Mehra</div></div>
+        <div class="lp-divider"></div>
+        <div class="lp-field" style="margin-top:10px"><div class="lp-label">Incident Start</div><div class="lp-value">14 March 2024</div></div>
+        <div class="lp-field"><div class="lp-label">Incident End</div><div class="lp-value">22 March 2024</div></div>
+        <div class="lp-field"><div class="lp-label">Location</div><div class="lp-value">Saket, New Delhi</div></div>
+        <div class="lp-divider"></div>
+        <div class="lp-field" style="margin-top:10px"><div class="lp-label">Jurisdiction</div><div class="lp-value">Delhi High Court</div></div>
+        <div class="lp-field"><div class="lp-label">Witness Present</div><div style="margin-top:3px"><span class="witness-tag">✓ Rajesh Mehra</span></div></div>
+      </div>
+      <div class="lp-note">Session #3. Prior sessions flagged 1 date inconsistency. Verify timeline of 17 Mar carefully.</div>
+    </div>
+
+    <div class="center-feed">
+      <div class="feed-scroll">
+        <div class="bubble">
+          <div class="bubble-icon icon-visual">👁️</div>
+          <div class="bubble-body">
+            <div class="bubble-meta"><div class="bubble-tag tag-visual">Visual</div><div class="bubble-time">10:14 AM</div></div>
+            <div class="bubble-text">Client states she saw the respondent at the property gate on the morning of 14 March, approximately 7:30 AM.</div>
+          </div>
+        </div>
+        <div class="bubble">
+          <div class="bubble-icon icon-auditory">👂</div>
+          <div class="bubble-body">
+            <div class="bubble-meta"><div class="bubble-tag tag-auditory">Auditory</div><div class="bubble-time">10:17 AM</div></div>
+            <div class="bubble-text">Heard loud argument from adjoining flat. Identified respondent's voice — recognized from prior encounters.</div>
+          </div>
+        </div>
+        <div class="bubble">
+          <div class="bubble-icon icon-somatic">✋</div>
+          <div class="bubble-body">
+            <div class="bubble-meta"><div class="bubble-tag tag-somatic">Somatic</div><div class="bubble-time">10:21 AM</div></div>
+            <div class="bubble-text">Describes a sensation of shaking and elevated heartbeat during the confrontation on 17 March.</div>
+          </div>
+        </div>
+        <div class="bubble" style="border-color: rgba(230,126,34,0.3); background: #FFFAF5;">
+          <div class="bubble-icon icon-visual">👁️</div>
+          <div class="bubble-body">
+            <div class="bubble-meta"><div class="bubble-tag tag-visual">Visual</div><div class="bubble-time">10:26 AM</div></div>
+            <div class="bubble-text">Now states she also saw the respondent on 16 March at the property — contradicts earlier statement of first sighting on 17 March.</div>
+          </div>
+        </div>
+        <div class="bubble">
+          <div class="bubble-icon icon-olfactory">👃</div>
+          <div class="bubble-body">
+            <div class="bubble-meta"><div class="bubble-tag tag-olfactory">Olfactory</div><div class="bubble-time">10:31 AM</div></div>
+            <div class="bubble-text">Noticed strong smell of smoke near east entrance on 22 March, consistent with burnt documents.</div>
+          </div>
+        </div>
+      </div>
+      <div class="input-area">
+        <div class="sensory-bar">
+          <button class="sensory-btn active">👁️ Visual</button>
+          <button class="sensory-btn">👂 Auditory</button>
+          <button class="sensory-btn">👃 Olfactory</button>
+          <button class="sensory-btn">✋ Somatic</button>
+        </div>
+        <div class="input-row">
+          <input class="text-inp" type="text" placeholder="Type deposit note here…" value="Client recounts seeing lights on in the disputed property on the night of 19 March…" />
+          <button class="btn-add">Add</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="right-panel">
+      <div class="rp-title">AI Ready</div>
+      <div class="rp-count">
+        <div class="rp-num">14</div>
+        <div class="rp-numlab">deposits logged</div>
+      </div>
+      <div class="rp-row"><span>Visual</span><span class="rp-rowval">6</span></div>
+      <div class="rp-row"><span>Auditory</span><span class="rp-rowval">4</span></div>
+      <div class="rp-row"><span>Olfactory</span><span class="rp-rowval">2</span></div>
+      <div class="rp-row"><span>Somatic</span><span class="rp-rowval">2</span></div>
+      <div class="rp-row" style="border-bottom:none;margin-top:4px"><span style="color:#C0392B">Conflicts</span><span style="color:#C0392B;font-weight:600">1</span></div>
+      <button class="btn-gen">Generate<br>Narrative ↗</button>
+    </div>
+  </div>
+</div>

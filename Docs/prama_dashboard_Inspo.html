@@ -1,0 +1,147 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap');
+:root {
+  --cream: #FDFCF0;
+  --slate: #34495E;
+  --seafoam: #8FBC8F;
+  --seafoam-light: #E8F5E8;
+  --seafoam-dark: #5A8A5A;
+  --conflict: #E67E22;
+  --border: rgba(52,73,94,0.12);
+  --card-bg: #FFFFFF;
+  --muted: #7A8FA6;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+.prama-shell { background: var(--cream); font-family: 'DM Sans', sans-serif; color: var(--slate); min-height: 600px; display: flex; flex-direction: column; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+.topbar { background: var(--card-bg); border-bottom: 1px solid var(--border); padding: 0 24px; height: 54px; display: flex; align-items: center; justify-content: space-between; }
+.logo { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600; color: var(--slate); letter-spacing: -0.3px; }
+.logo span { color: var(--seafoam-dark); }
+.topnav { display: flex; align-items: center; gap: 6px; }
+.topnav a { font-size: 13px; color: var(--muted); padding: 6px 12px; border-radius: 6px; cursor: pointer; text-decoration: none; }
+.topnav a.active { color: var(--slate); background: var(--seafoam-light); }
+.btn-new { background: var(--seafoam); color: #fff; border: none; border-radius: 7px; padding: 8px 16px; font-size: 13px; font-family: 'DM Sans', sans-serif; font-weight: 500; cursor: pointer; letter-spacing: 0.2px; }
+.body { display: flex; flex: 1; }
+.sidebar { width: 200px; background: var(--card-bg); border-right: 1px solid var(--border); padding: 20px 0; flex-shrink: 0; }
+.sidebar-section { padding: 0 16px; margin-bottom: 24px; }
+.sidebar-label { font-size: 10px; letter-spacing: 1px; color: var(--muted); text-transform: uppercase; font-weight: 500; margin-bottom: 8px; padding: 0 4px; }
+.sidebar-item { display: flex; align-items: center; gap: 8px; padding: 7px 8px; border-radius: 6px; font-size: 13px; color: var(--slate); cursor: pointer; margin-bottom: 2px; }
+.sidebar-item:hover { background: var(--seafoam-light); }
+.sidebar-item.active { background: var(--seafoam-light); color: var(--seafoam-dark); font-weight: 500; }
+.sidebar-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.main { flex: 1; padding: 24px; overflow-y: auto; }
+.main-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.main-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 500; color: var(--slate); }
+.main-sub { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+.filter-tabs { display: flex; gap: 6px; margin-bottom: 20px; }
+.ftab { font-size: 12px; padding: 5px 12px; border-radius: 20px; border: 1px solid var(--border); color: var(--muted); cursor: pointer; background: transparent; }
+.ftab.active { background: var(--slate); color: #fff; border-color: var(--slate); }
+.cases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+.case-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; cursor: pointer; transition: border-color 0.15s; }
+.case-card:hover { border-color: var(--seafoam); }
+.cc-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+.cc-id { font-size: 10px; letter-spacing: 0.8px; color: var(--muted); text-transform: uppercase; }
+.badge { font-size: 10px; padding: 3px 9px; border-radius: 20px; font-weight: 500; letter-spacing: 0.3px; }
+.badge-collecting { background: #F0F0F0; color: #888; }
+.badge-synthesized { background: var(--seafoam-light); color: var(--seafoam-dark); }
+.badge-review { background: #FEF3E2; color: #B35900; }
+.cc-name { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 500; color: var(--slate); margin-bottom: 4px; }
+.cc-juris { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+.cc-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 10px; border-top: 1px solid var(--border); }
+.cc-date { font-size: 11px; color: var(--muted); }
+.cc-avatar { width: 24px; height: 24px; border-radius: 50%; background: var(--seafoam-light); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; color: var(--seafoam-dark); }
+.divider { height: 1px; background: var(--border); margin: 16px 0; }
+</style>
+
+<div class="prama-shell">
+  <div class="topbar">
+    <div class="logo">Pra<span>ma</span></div>
+    <div class="topnav">
+      <a class="active">Dashboard</a>
+      <a>Cases</a>
+      <a>Affidavits</a>
+      <a>Settings</a>
+    </div>
+    <button class="btn-new">+ New Case</button>
+  </div>
+  <div class="body">
+    <div class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-label">Recent Sessions</div>
+        <div class="sidebar-item active"><div class="sidebar-dot" style="background:var(--seafoam)"></div> Mehra v. Sharma</div>
+        <div class="sidebar-item"><div class="sidebar-dot" style="background:#ccc"></div> State v. Kapoor</div>
+        <div class="sidebar-item"><div class="sidebar-dot" style="background:#ccc"></div> Jain Custody</div>
+        <div class="sidebar-item"><div class="sidebar-dot" style="background:var(--conflict)"></div> Rathore Estate</div>
+      </div>
+      <div class="divider" style="margin:0 16px"></div>
+      <div class="sidebar-section" style="margin-top:16px">
+        <div class="sidebar-label">Drafted Affidavits</div>
+        <div class="sidebar-item"><div class="sidebar-dot" style="background:var(--seafoam)"></div> Aff. #2024-114</div>
+        <div class="sidebar-item"><div class="sidebar-dot" style="background:#ccc"></div> Aff. #2024-098</div>
+        <div class="sidebar-item"><div class="sidebar-dot" style="background:#ccc"></div> Aff. #2024-087</div>
+      </div>
+      <div class="divider" style="margin:0 16px"></div>
+      <div class="sidebar-section" style="margin-top:16px">
+        <div class="sidebar-label">Quick Stats</div>
+        <div style="background:var(--seafoam-light);border-radius:8px;padding:10px 12px;margin-bottom:8px">
+          <div style="font-size:10px;color:var(--seafoam-dark);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:2px">Active Cases</div>
+          <div style="font-size:22px;font-family:'Playfair Display',serif;color:var(--slate);font-weight:500">12</div>
+        </div>
+        <div style="background:#F8F8F8;border-radius:8px;padding:10px 12px">
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:2px">Pending Review</div>
+          <div style="font-size:22px;font-family:'Playfair Display',serif;color:var(--slate);font-weight:500">3</div>
+        </div>
+      </div>
+    </div>
+    <div class="main">
+      <div class="main-header">
+        <div class="main-title">Active Cases</div>
+      </div>
+      <div class="main-sub">12 cases · Last updated today at 11:42 AM</div>
+      <div class="filter-tabs">
+        <button class="ftab active">All Cases</button>
+        <button class="ftab">Collecting</button>
+        <button class="ftab">Synthesized</button>
+        <button class="ftab">Under Review</button>
+      </div>
+      <div class="cases-grid">
+        <div class="case-card">
+          <div class="cc-top"><div class="cc-id">CASE-2024-114</div><div class="badge badge-synthesized">Synthesized</div></div>
+          <div class="cc-name">Mehra v. Sharma</div>
+          <div class="cc-juris">Delhi High Court · Civil Division</div>
+          <div class="cc-footer"><div class="cc-date">Session: 28 Jun 2024</div><div class="cc-avatar">AM</div></div>
+        </div>
+        <div class="case-card">
+          <div class="cc-top"><div class="cc-id">CASE-2024-109</div><div class="badge badge-collecting">Collecting</div></div>
+          <div class="cc-name">State v. Kapoor</div>
+          <div class="cc-juris">Punjab & Haryana HC · Criminal</div>
+          <div class="cc-footer"><div class="cc-date">Session: 24 Jun 2024</div><div class="cc-avatar">SK</div></div>
+        </div>
+        <div class="case-card">
+          <div class="cc-top"><div class="cc-id">CASE-2024-098</div><div class="badge badge-review">Under Review</div></div>
+          <div class="cc-name">Jain Custody Matter</div>
+          <div class="cc-juris">Family Court, Mumbai</div>
+          <div class="cc-footer"><div class="cc-date">Session: 19 Jun 2024</div><div class="cc-avatar">PJ</div></div>
+        </div>
+        <div class="case-card">
+          <div class="cc-top"><div class="cc-id">CASE-2024-087</div><div class="badge badge-synthesized">Synthesized</div></div>
+          <div class="cc-name">Rathore Estate Dispute</div>
+          <div class="cc-juris">Supreme Court · Civil</div>
+          <div class="cc-footer"><div class="cc-date">Session: 11 Jun 2024</div><div class="cc-avatar">VR</div></div>
+        </div>
+        <div class="case-card">
+          <div class="cc-top"><div class="cc-id">CASE-2024-081</div><div class="badge badge-collecting">Collecting</div></div>
+          <div class="cc-name">Bhatia Land Acquisition</div>
+          <div class="cc-juris">NCLT · Insolvency Bench</div>
+          <div class="cc-footer"><div class="cc-date">Session: 08 Jun 2024</div><div class="cc-avatar">RB</div></div>
+        </div>
+        <div class="case-card">
+          <div class="cc-top"><div class="cc-id">CASE-2024-074</div><div class="badge badge-review">Under Review</div></div>
+          <div class="cc-name">Verma Employment</div>
+          <div class="cc-juris">Labour Court, Chennai</div>
+          <div class="cc-footer"><div class="cc-date">Session: 02 Jun 2024</div><div class="cc-avatar">NV</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

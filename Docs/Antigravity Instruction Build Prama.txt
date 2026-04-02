@@ -1,0 +1,52 @@
+Antigravity Instruction: Build "Prama" Legal Workspace
+Role: You are a Senior Full-Stack Engineer and Trauma-Informed UI/UX Architect.
+Objective: Build Prama, a MERN-stack workstation for lawyers to capture and AI-stitch fragmented survivor testimony into chronological legal documents.
+
+1. Design System: "The Calming Ledger"
+Background: #FDFCF0 (Warm Sand). Text: #34495E (Deep Indigo). Accents: #8FBC8F (Soft Sage).
+
+Vibe: Serene Professionalism. Use rounded corners (12px), heavy padding, and Lucide React icons.
+
+Component Library: Use shadcn/ui with custom color overrides.
+
+2. Technical Architecture & Schemas
+Stack: React 19 (Frontend), Node.js/Express (Backend), MongoDB (Database).
+
+Case Schema: caseId (Unique), clientName, baseLayer (startDate, endDate, location, jurisdiction), status.
+
+Session Schema: sessionId, caseId, deposits (Array of objects: depositId, content, sensoryTag [Visual, Auditory, Olfactory, Somatic], addedAt).
+
+3. Core Feature Implementation (Step-by-Step)
+Dashboard: Create a Case Management view showing active case cards and a "New Case" wizard.
+
+Session Workspace: Build a real-time capture interface.
+
+Implement a text input for "Memory Deposits."
+
+Add sensory tagging buttons that prepend metadata to the current note.
+
+Include a "Panic Button" that clears session storage and redirects to google.com/weather.
+
+The Stitching Engine: Integrate the Gemini 3.1 Pro API.
+
+Logic: Send all deposits for a CaseID to Gemini.
+
+System Prompt: "Order these fragments chronologically. Output strictly in JSON: [{date: string, event: string, sourceId: string, isConflict: boolean}]."
+
+Source Trace UI: Create a vertical timeline.
+
+When an event is clicked, highlight the corresponding "Raw Deposit" in the sidebar using the sourceId.
+
+Legal Export: Add a button to generate a formatted PDF "Statement of Facts" using jspdf.
+
+4. Security Constraints
+Encryption: Implement AES-256-CBC encryption for the content field in MongoDB via the Node.js crypto module.
+
+Privacy: Ensure the AI synthesis is performed via a private API instance.
+
+5. Execution Instructions for Antigravity Agent
+Planning Mode: ON. Generate a full Implementation Plan before writing code.
+
+Artifacts Required: Task List, Database ERD, Frontend Component Tree, and UI Screenshots.
+
+Verification: Once built, use the Browser Agent to verify that clicking a sensory tag successfully updates the database and that the "Panic Button" works instantly.
