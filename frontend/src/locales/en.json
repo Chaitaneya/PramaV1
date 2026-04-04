@@ -207,5 +207,14 @@
   "shared_invalid": "This share link is invalid, expired, or has been revoked.",
   "shared_loading": "Verifying share link…",
   "lang_cert_title": "Language Certification",
-  "lang_cert_body": "This document was prepared using Prama Legal Workspace. The capture interface was operated in Hindi to facilitate trauma-informed documentation. All legal output has been generated in English. Original memory deposits are preserved in their source language and are available for verification upon request."
+  "lang_cert_body": "This document was prepared using Prama Legal Workspace. The capture interface was operated in Hindi to facilitate trauma-informed documentation. All legal output has been generated in English. Original memory deposits are preserved in their source language and are available for verification upon request.",
+  "start_dictation": "Start Dictation",
+  "stop_dictation": "Stop Dictation",
+  "mic_error": "Microphone error. Please check permissions.",
+  "forensic_ai_label": "🔍 Forensic AI",
+  "forensic_found": "Evidence extracted from your upload",
+  "forensic_accept": "Yes, add this to my memory",
+  "forensic_dismiss": "Dismiss",
+  "forensic_match": "This matches your memory",
+  "forensic_processing": "Analyzing evidence..."
 }

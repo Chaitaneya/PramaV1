@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import apiClient from '../api';
 import Shell from '../components/Shell';
 import TraumaGuideCarousel from '../components/TraumaGuideCarousel';
+import BraveStories from '../components/BraveStories';
 import { Search, Trash2, FolderSearch } from 'lucide-react';
 
 export default function Dashboard() {
@@ -60,10 +61,9 @@ export default function Dashboard() {
   return (
     <Shell updateTrigger={cases.length}>
       <div className="flex flex-1 overflow-hidden h-full">
-        <div className="flex-1 overflow-y-auto bg-cream pb-12 relative">
+        <div className="flex-1 overflow-y-auto bg-cream pb-12 relative animate-fadeIn">
           
           {/* Aura Background Watermark */}
-          {/* Note: You can adjust the transparency below by changing the opacity inside style={{ opacity: ... }} */}
           <div className="fixed inset-0 z-0 flex items-center justify-center pointer-events-none overflow-hidden">
             <img 
               src="/assests/watermark.png" 
@@ -76,20 +76,23 @@ export default function Dashboard() {
           <div className="max-w-[1600px] mx-auto w-full p-6 md:p-8 relative z-10">
             
             {/* Command Center Search Bar */}
-            <div className="mb-10 w-full max-w-3xl">
-              <h1 className="font-serif text-[28px] font-medium text-slate tracking-tight mb-4">Command Center</h1>
-              <div className="relative group">
+            <div className="mb-10 w-full max-w-4xl">
+              <h1 className="font-serif text-[32px] font-medium text-slate tracking-tight mb-6">Command Center</h1>
+              <div className="relative group mb-10">
                 <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none text-muted group-focus-within:text-primary transition-colors">
-                  <Search size={20} />
+                  <Search size={22} />
                 </div>
                 <input
                   type="text"
                   placeholder="Query litigation matters by Client Name or Case ID..."
-                  className="w-full bg-card-bg border-[1.5px] border-border text-slate placeholder-muted text-[15px] rounded-2xl pl-14 pr-6 py-4 outline-none focus:border-primary focus:ring-[3px] focus:ring-primary-light transition-all shadow-sm"
+                  className="w-full bg-card-bg border-[1.5px] border-border text-slate placeholder-muted text-lg rounded-2xl pl-16 pr-8 py-5 outline-none focus:border-primary focus:ring-[4px] focus:ring-primary-light transition-all shadow-md group-hover:shadow-lg"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
+
+              {/* Brave Stories Section - THE WOW FACTOR */}
+              <BraveStories />
             </div>
 
             {/* Filter and Metrics Row */}

@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import apiClient from '../api';
 import Shell from '../components/Shell';
-import { Search, AlignLeft, Eye, Ear, Wind, Hand, FileText, Activity, Paperclip } from 'lucide-react';
+import ForensicIntelCard from '../components/ForensicIntelCard';
+import { Search, AlignLeft, Eye, Ear, Wind, Hand, FileText, Activity, Paperclip, Mic, MicOff, Trash2 } from 'lucide-react';
+import useSpeechRecognition from '../hooks/useSpeechRecognition';
 import { useLanguage } from '../i18n';
 
 const TAGS = [
@@ -25,8 +27,19 @@ export default function SessionCapture() {
   const [deposits,     setDeposits]    = useState([]);
   const [clientData,   setClientData]  = useState({ name: 'Loading...', baseLayer: {} });
   const [inputText,    setInputText]   = useState('');
+  const [interimText,  setInterimText] = useState('');
   const [activeTag,    setActiveTag]   = useState('General');
   const [searchQuery,  setSearchQuery] = useState('');
+
+  // Speech Recognition
+  const handleSpeechResult = useCallback(({ interimTranscript, finalTranscript }) => {
+    if (finalTranscript) {
+      setInputText(prev => (prev + ' ' + finalTranscript).trim());
+    }
+    setInterimText(interimTranscript);
+  }, []);
+
+  const { isListening, error: speechError, toggleListening } = useSpeechRecognition({ onResult: handleSpeechResult });
 
   // Check-in
   const [checkedIn,  setCheckedIn]  = useState(false);
@@ -42,6 +55,9 @@ export default function SessionCapture() {
   const [uploading,          setUploading]           = useState(false);
   const fileInputRef = useRef(null);
 
+  // Forensic intel suggestion state
+  const [forensicSuggestion, setForensicSuggestion] = useState(null); // { intel, matchedDeposit }
+
   // Session counter for this tab visit
   const [thisSessionCount, setThisSessionCount] = useState(0);
 
@@ -55,7 +71,9 @@ export default function SessionCapture() {
       res.data.forEach((s, i) => {
         const label = `Session ${i + 1} · ${new Date(s.timestamp).toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' })}`;
         s.deposits.forEach(d => allDeps.push({
-          id: d._id, type: d.sensoryTag,
+          id: d.depositId || d._id, // use depositId for the delete route
+          sessionId: s._id, // store the parent session ID for the delete route
+          type: d.sensoryTag,
           icon: TAGS.find(t => t.name === d.sensoryTag)?.icon || <AlignLeft size={16}/>,
           time: new Date(d.addedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
           date: new Date(d.addedAt).toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' }),
@@ -82,7 +100,7 @@ export default function SessionCapture() {
 
   const fmtTimer = (s) => `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`;
 
-  // File upload
+  // File upload — enriched with Forensic AI (initial working version)
   const handleFileSelect = async (e) => {
     const files = Array.from(e.target.files);
     if (!files.length) return;
@@ -90,10 +108,23 @@ export default function SessionCapture() {
     try {
       const formData = new FormData();
       files.forEach(f => formData.append('files', f));
-      const res = await apiClient.post(`/api/cases/${encodeURIComponent(id)}/uploads`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-      setPendingAttachments(prev => [...prev, ...res.data.files]);
+      const res = await apiClient.post(`/api/cases/${encodeURIComponent(id)}/uploads`, formData);
+      const uploadedFiles = res.data.files;
+      setPendingAttachments(prev => [...prev, ...uploadedFiles]);
+
+      // Check for Forensic AI intel in any uploaded file
+      const filesWithIntel = uploadedFiles.filter(f => f.forensicIntel?.summary);
+      if (filesWithIntel.length > 0) {
+        const intel = filesWithIntel[0].forensicIntel;
+        let matchedDeposit = null;
+        if (intel.dates?.length > 0) {
+          const dateFragments = intel.dates.map(d => d.toLowerCase());
+          matchedDeposit = deposits.find(dep =>
+            dateFragments.some(frag => dep.text.toLowerCase().includes(frag.slice(0, 6)))
+          ) || null;
+        }
+        setForensicSuggestion({ intel, matchedDeposit });
+      }
     } catch (err) { alert('File upload failed: ' + (err.response?.data?.error || err.message)); }
     finally { setUploading(false); if (fileInputRef.current) fileInputRef.current.value = ''; }
   };
@@ -114,7 +145,9 @@ export default function SessionCapture() {
       sessionLabel: label, text: textToSend, attachments: attachmentsToSend,
     }]);
     setInputText('');
+    setInterimText('');
     setPendingAttachments([]);
+    setForensicSuggestion(null);
     setThisSessionCount(c => c + 1);
 
     try {
@@ -129,6 +162,21 @@ export default function SessionCapture() {
   const handleTakeBreak = async () => {
     try { await apiClient.post(`/api/cases/${encodeURIComponent(id)}/sessions/end`); } catch {}
     navigate('/');
+  };
+
+  const handleDeleteDeposit = async (sessionId, depositId) => {
+    if (!window.confirm(t('confirm_delete_memory', 'Are you sure you want to permanently remove this specific memory from the case file?'))) return;
+    try {
+      // Find the session that contains this deposit in our local state to get the DB sessionId
+      // Actually, we already have the raw response from /sessions in our useEffect. 
+      // Let's refine the local state to store sessionId mapping.
+      await apiClient.delete(`/api/cases/${encodeURIComponent(id)}/sessions/${sessionId}/deposit/${depositId}`);
+      // Refresh local state
+      setDeposits(prev => prev.filter(d => d.id !== depositId));
+      sessionStorage.removeItem(`prama_stitch_${id}`);
+    } catch (err) {
+      alert('Failed to delete memory: ' + (err.response?.data?.error || err.message));
+    }
   };
 
   const groupedDeposits = deposits
@@ -299,7 +347,16 @@ export default function SessionCapture() {
                         <div className="bg-gray-50 w-8 h-8 rounded flex items-center justify-center shrink-0 border border-border text-base">{d.icon}</div>
                         <div className="flex-1 min-w-0">
                           <div className="flex justify-between items-center mb-1">
-                            <span className="font-semibold text-slate text-xs">{d.type}</span>
+                            <div className="flex items-center gap-2">
+                              <span className="font-semibold text-slate text-xs">{d.type}</span>
+                              <button 
+                                onClick={() => handleDeleteDeposit(d.sessionId, d.id)}
+                                className="text-red-300 hover:text-red-500 transition-colors"
+                                title={t('delete_memory', 'Delete Memory')}
+                              >
+                                <Trash2 size={12} />
+                              </button>
+                            </div>
                             <span className="text-[10px] text-muted">{d.time}</span>
                           </div>
                           <div className="text-slate leading-relaxed text-[13px]">{d.text}</div>
@@ -357,18 +414,45 @@ export default function SessionCapture() {
                 </div>
               )}
 
+              {/* Forensic AI Card */}
+              {forensicSuggestion && (
+                <ForensicIntelCard
+                  intel={forensicSuggestion.intel}
+                  matchedDeposit={forensicSuggestion.matchedDeposit}
+                  onAccept={() => {
+                    // Auto-fill the textarea with the AI-extracted summary
+                    const summary = forensicSuggestion.intel.summary || '';
+                    setInputText(prev => prev ? `${prev}\n${summary}` : summary);
+                    setForensicSuggestion(null);
+                  }}
+                  onDismiss={() => setForensicSuggestion(null)}
+                />
+              )}
+
               {/* Text input inline with attachment */}
               <div className="flex gap-2">
+                {speechError && (
+                  <div className="absolute top-2 left-1/2 -translate-x-1/2 bg-red-100 text-red-600 px-3 py-1 rounded-full text-xs animate-bounceshadow-sm">
+                    {t('mic_error', 'Microphone error. Please check permissions.')}
+                  </div>
+                )}
                 <label className="cursor-pointer flex items-center justify-center p-3 text-muted hover:text-slate bg-gray-50 border border-border rounded-xl transition-colors shrink-0" title={t('attach_tooltip', 'Attach photo or document')}>
                   <Paperclip size={18} className="text-slate" />
                   <input ref={fileInputRef} type="file" multiple
-                    accept="image/*,.pdf,audio/*,video/*"
+                    accept="image/*,.pdf"
                     className="hidden" onChange={handleFileSelect}
                     disabled={uploading} />
                 </label>
+                <button
+                  onClick={(e) => { e.preventDefault(); toggleListening(); }}
+                  title={isListening ? t('stop_dictation', 'Stop Dictation') : t('start_dictation', 'Start Dictation')}
+                  disabled={uploading}
+                  className={`flex items-center justify-center p-3 border rounded-xl transition-colors shrink-0 ${isListening ? 'bg-red-50 border-red-200 text-red-500 animate-pulse' : 'bg-gray-50 border-border text-muted hover:text-slate'}`}>
+                  {isListening ? <MicOff size={18} /> : <Mic size={18} />}
+                </button>
                 <textarea
                   rows={2}
-                  value={inputText}
+                  value={inputText + (isListening && interimText ? (inputText ? ' ' : '') + interimText : '')}
                   onChange={e => setInputText(e.target.value)}
                   onKeyDown={e => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleAdd())}
                   placeholder={t('input_placeholder', "Describe what you remember — in any order, any detail. Don't worry about getting it perfect.")}

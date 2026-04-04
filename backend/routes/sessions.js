@@ -58,4 +58,19 @@ router.post('/end', async (req, res) => {
   }
 });
 
+// Delete a specific deposit from a session
+router.delete('/:sessionId/deposit/:depositId', async (req, res) => {
+  try {
+    const session = await Session.findByIdAndUpdate(
+      req.params.sessionId,
+      { $pull: { deposits: { depositId: req.params.depositId } } },
+      { new: true }
+    );
+    if (!session) return res.status(404).json({ error: 'Session not found' });
+    res.json({ message: 'Memory deposit permanently removed', session });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 module.exports = router;
