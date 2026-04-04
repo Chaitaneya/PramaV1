@@ -25,24 +25,16 @@ router.get('/', async (req, res) => {
 // Create a session with a deposit
 router.post('/', async (req, res) => {
   try {
-    const { content, sensoryTag } = req.body;
-    
-    // Encrypt the deposit content
+    const { content, sensoryTag, attachments } = req.body;
     const encryptedContent = encrypt(content);
-    
-    // Find an open session or create one
-    let session = await Session.findOne({ 
-      caseId: req.params.caseId,
-      isClosed: false
-    });
-
-    if (!session) {
-      session = new Session({ caseId: req.params.caseId });
-    }
+    let session = await Session.findOne({ caseId: req.params.caseId, isClosed: false });
+    if (!session) session = new Session({ caseId: req.params.caseId });
 
     session.deposits.push({
-      content: encryptedContent,
-      sensoryTag
+      depositId:   `dep_${Date.now()}`,
+      content:     encryptedContent,
+      sensoryTag,
+      attachments: attachments || [],
     });
 
     await session.save();

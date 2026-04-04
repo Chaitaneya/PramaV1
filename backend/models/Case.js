@@ -18,6 +18,10 @@ const CaseSchema = new mongoose.Schema({
     priorReports: { type: String }
   },
   status: { type: String, enum: ['Collecting', 'Synthesized', 'Finalized', 'Under Review'], default: 'Collecting' },
+  placements: [{
+    floatingKey:     { type: String },
+    insertAfterDate: { type: String },
+  }],
   createdAt: { type: Date, default: Date.now }
 });
 

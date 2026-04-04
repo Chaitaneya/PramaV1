@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import apiClient from '../api';
 import Shell from '../components/Shell';
 import { FileText, Download } from 'lucide-react';
 
@@ -10,7 +10,7 @@ export default function AffidavitsList() {
 
   useEffect(() => {
     // Only fetch cases that likely have an affidavit ready
-    axios.get('http://localhost:5000/api/cases?status=Synthesized,Finalized')
+    apiClient.get('/api/cases?status=Synthesized,Finalized')
       .then(res => setCases(res.data))
       .catch(err => console.error(err));
   }, []);

@@ -40,6 +40,9 @@ router.post('/', async (req, res) => {
     const saved = await newCase.save();
     res.status(201).json(saved);
   } catch (err) {
+    if (err.code === 11000) {
+      return res.status(400).json({ error: 'A case with this Case ID already exists. Please choose a different ID.' });
+    }
     res.status(400).json({ error: err.message });
   }
 });
@@ -50,7 +53,7 @@ router.put('/:id/hearing', async (req, res) => {
     const updated = await Case.findOneAndUpdate(
       { caseId: req.params.id },
       { hearingDate: req.body.hearingDate ? new Date(req.body.hearingDate) : null },
-      { new: true }
+      { returnDocument: 'after' }
     );
     res.json(updated);
   } catch (err) {
@@ -78,6 +81,21 @@ router.delete('/:id', async (req, res) => {
       await Session.deleteMany({ caseId: deletedCase._id });
       await Case.deleteOne({ _id: deletedCase._id });
     }
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Save/update lawyer's event placements
+router.put('/:id/placements', async (req, res) => {
+  try {
+    const updated = await Case.findOneAndUpdate(
+      { caseId: req.params.id },
+      { placements: req.body.placements || [] },
+      { returnDocument: 'after' }
+    );
+    if (!updated) return res.status(404).json({ error: 'Case not found' });
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: err.message });

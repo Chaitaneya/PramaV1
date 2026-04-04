@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import apiClient from '../api';
 import Shell from '../components/Shell';
+import TraumaGuideCarousel from '../components/TraumaGuideCarousel';
 import { Search, Trash2, FolderSearch } from 'lucide-react';
 
 export default function Dashboard() {
@@ -12,7 +13,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     // Only fetch active cases
-    axios.get('http://localhost:5000/api/cases?status=Collecting,Under Review')
+    apiClient.get('/api/cases?status=Collecting,Under Review')
       .then(res => setCases(res.data))
       .catch(err => console.error("Error fetching cases:", err));
   }, []);
@@ -30,7 +31,7 @@ export default function Dashboard() {
   const handleDelete = async (caseId, clientName) => {
     if (window.confirm(`Crucial Protocol: Are you absolutely sure you want to permanently delete ALL deposits and intelligence logic associated with ${clientName}?`)) {
       try {
-        await axios.delete(`http://localhost:5000/api/cases/${caseId}`);
+        await apiClient.delete(`/api/cases/${caseId}`);
         setCases(cases.filter(c => c.caseId !== caseId));
       } catch (err) {
         console.error("Failed to delete case", err);
@@ -59,7 +60,6 @@ export default function Dashboard() {
   return (
     <Shell updateTrigger={cases.length}>
       <div className="flex flex-1 overflow-hidden h-full">
-        
         <div className="flex-1 overflow-y-auto bg-cream pb-12 relative">
           
           {/* Aura Background Watermark */}
@@ -166,6 +166,12 @@ export default function Dashboard() {
           )}
           </div>
         </div>
+
+        {/* Right sidebar — Research Guide */}
+        <div className="w-[280px] border-l border-border bg-card-bg p-5 hidden xl:flex flex-col gap-6 shrink-0 overflow-y-auto">
+          <TraumaGuideCarousel />
+        </div>
+
       </div>
     </Shell>
   );

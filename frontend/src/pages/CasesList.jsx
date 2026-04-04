@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import apiClient from '../api';
 import Shell from '../components/Shell';
 import { Trash2 } from 'lucide-react';
 
@@ -12,7 +12,7 @@ export default function CasesList() {
 
   useEffect(() => {
     // Fetch all cases to allow local filtering
-    axios.get('http://localhost:5000/api/cases')
+    apiClient.get('/api/cases')
       .then(res => setCases(res.data))
       .catch(err => console.error("Error fetching cases:", err));
   }, []);
@@ -30,7 +30,7 @@ export default function CasesList() {
   const handleDelete = async (caseId, clientName) => {
     if (window.confirm(`Crucial Protocol: Are you absolutely sure you want to permanently delete ALL deposits and intelligence logic associated with ${clientName}?`)) {
       try {
-        await axios.delete(`http://localhost:5000/api/cases/${caseId}`);
+        await apiClient.delete(`/api/cases/${caseId}`);
         setCases(cases.filter(c => c.caseId !== caseId));
       } catch (err) {
         console.error("Failed to delete case", err);

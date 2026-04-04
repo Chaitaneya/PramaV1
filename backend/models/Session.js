@@ -1,9 +1,18 @@
 const mongoose = require('mongoose');
 
 const DepositSchema = new mongoose.Schema({
-  content: { type: String, required: true }, // Encrypted payload
-  sensoryTag: { type: String, enum: ['Visual', 'Auditory', 'Olfactory', 'Somatic', 'General'], required: true, default: 'General' },
-  addedAt: { type: Date, default: Date.now }
+  depositId:  { type: String },
+  content:    { type: String, required: true },
+  sensoryTag: { type: String, enum: ['Visual','Auditory','Olfactory','Somatic','General'], required: true, default: 'General' },
+  addedAt:    { type: Date, default: Date.now },
+  attachments: [{
+    filename:     String,
+    originalName: String,
+    mimeType:     String,
+    size:         Number,
+    url:          String,
+    exifDate:     String,
+  }],
 });
 
 const SessionSchema = new mongoose.Schema({
