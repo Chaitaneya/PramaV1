@@ -29,7 +29,7 @@ Prama is an enterprise-grade Legal Narrative Orchestrator designed to empower at
 - **Federated Evidence Exchange (Sovereign Multi-Institutional Access Control):** A highly secure schema providing dynamically expirable, role-based tokenized authentication. Facilitates zero-trust, auditable evidence brokering between discrete organizational silos (legal counsel, NGOs, therapeutic practitioners).
 - **Automated Document Synthesis & Sovereign Evidence Export:** Executes one-click deterministic rendering of aggregated timeline events into beautifully formatted, court-admissible PDF legal affidavits ready for immediate litigation transmission.
 
-## Features Built During 36Hr Thapar Hackathon
+## Features Built During 36Hr Hackathon
 
 - **Verifiable Traceability:** Immutable source-tracing from raw trauma deposits directly to the final legal chronology. Every legal proposition is intrinsically linked back to its exact phenomenological origin.
 - **Proactive Conflict Detection:** A ruthless heuristic engine continuously evaluates semantic meaning to automatically flag chronological paradoxes and logical inconsistencies before they manifest as case-breaking vulnerabilities.
