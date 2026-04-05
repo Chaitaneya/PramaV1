@@ -29,6 +29,22 @@ Prama is an enterprise-grade Legal Narrative Orchestrator designed to empower at
 - **Federated Evidence Exchange (Sovereign Multi-Institutional Access Control):** A highly secure schema providing dynamically expirable, role-based tokenized authentication. Facilitates zero-trust, auditable evidence brokering between discrete organizational silos (legal counsel, NGOs, therapeutic practitioners).
 - **Automated Document Synthesis & Sovereign Evidence Export:** Executes one-click deterministic rendering of aggregated timeline events into beautifully formatted, court-admissible PDF legal affidavits ready for immediate litigation transmission.
 
+## Features Built During 36Hr Thapar Hackathon
+
+- **Verifiable Traceability:** Immutable source-tracing from raw trauma deposits directly to the final legal chronology. Every legal proposition is intrinsically linked back to its exact phenomenological origin.
+- **Proactive Conflict Detection:** A ruthless heuristic engine continuously evaluates semantic meaning to automatically flag chronological paradoxes and logical inconsistencies before they manifest as case-breaking vulnerabilities.
+- **Cryptographic Integrity:** Fortified with military-grade, unbreakable AES-256 payload encryption. The platform operates as a zero-knowledge high-security vault, enforcing absolute data sovereignty over volatile survivor metadata.
+- **Absolute Temporal Grounding:** State-of-the-art base-layer deduction algorithms contextually anchor vague, fragmented memory shards (e.g., "during the winter of 2019") onto a concrete, mathematically precise timeline.
+- **Trauma-Informed UI/UX:** A neuro-aesthetic interface engineered with biometric-adjacent pacing, emotional check-ins, and granular destructive controls. Sidesteps sterile clinical heuristics to act as a restorative digital sanctuary.
+- **Asynchronous Session Capture:** Complete sovereignty over the tempo. Pause, end, and seamlessly resume memory deposits natively, granting users ultimate control over when and how sensitive testimony is materialized.
+- **Autonomous AI Orchestration:** A multi-model AI stitching engine governing complex data assembly and cross-lingual translation via a flawless deterministic pipeline, effectively disintegrating LLM hallucinations.
+- **Comprehensive AI Review Layer:** Instantly inject complex legal documents and visual evidentiary media. The underlying AI layer autonomously digests, scrutinizes, and seamlessly weaves these assets directly into distinct memory nodes.
+- **Automated Voice-to-Text Ingestion:** True automation. Advanced ambient voice recognition synthesizes raw verbal testimony into rigorously structured text in real-time, removing kinetic friction from the intake process.
+- **Hindi Friendly (Native Accessibility):** Deep cross-lingual i18n capabilities fluidly absorb trauma deposits in Hindi and Hinglish. The cognitive interface speaks the user's truth, maximizing psychological accessibility.
+- **Automated Language Certification:** Every translated artifact is immutably logged, automatically generating native language validation certificates that affirm perfect, court-ready English translations.
+- **Federated Multi-Institutional Sharing:** Zero-trust, dynamic-token evidence brokering. Auditably share specific, highly restricted case fragments across discrete organizational silos—seamlessly bridging attorneys, NGOs, and medical staff.
+- **One-Click Affidavit Maker:** A sovereign export engine that instantly renders the synthesized timeline into beautifully structured, court-admissible PDF legal affidavits, primed for immediate litigation.
+
 ## Technology Stack & Infrastructure
 
 - **Frontend Environment:** React (Vite ecosystem), TailwindCSS Utility-First Framework, React Router Dom.
