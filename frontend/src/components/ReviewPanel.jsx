@@ -86,8 +86,8 @@ export default function ReviewPanel({ isOpen, onClose, caseId, onUpdate }) {
                        </span>
                     </div>
                     
-                    <div className="bg-cream/50 rounded-xl p-4 border border-border/40 mb-4">
-                       <p className="text-[14px] text-slate leading-relaxed italic">"{item.content}"</p>
+                    <div className="bg-cream/50 rounded-xl p-4 border border-border/40 mb-4 overflow-hidden">
+                       <p className="text-[14px] text-slate leading-relaxed italic break-all">"{item.content}"</p>
                     </div>
 
                     <div className="flex gap-2">
