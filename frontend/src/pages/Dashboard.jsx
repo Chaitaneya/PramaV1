@@ -61,7 +61,7 @@ export default function Dashboard() {
   return (
     <Shell updateTrigger={cases.length}>
       <div className="flex flex-1 overflow-hidden h-full">
-        <div className="flex-1 overflow-y-auto bg-cream pb-12 relative animate-fadeIn">
+        <div className="flex-1 overflow-y-auto bg-[#F9F8F6] pb-16 relative">
           
           {/* Aura Background Watermark */}
           <div className="fixed inset-0 z-0 flex items-center justify-center pointer-events-none overflow-hidden">
@@ -69,43 +69,43 @@ export default function Dashboard() {
               src="/assests/watermark.png" 
               alt="Dashboard Watermark" 
               className="w-[800px] md:w-[1000px] h-auto object-contain" 
-              style={{ opacity: 0.09 }} 
+              style={{ opacity: 0.02 }} 
             />
           </div>
 
-          <div className="max-w-[1600px] mx-auto w-full p-6 md:p-8 relative z-10">
+          <div className="max-w-[1200px] mx-auto w-full px-8 py-10 relative z-10">
             
             {/* Command Center Search Bar */}
-            <div className="mb-10 w-full max-w-4xl">
-              <h1 className="font-serif text-[32px] font-medium text-slate tracking-tight mb-6">Command Center</h1>
-              <div className="relative group mb-10">
-                <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none text-muted group-focus-within:text-primary transition-colors">
-                  <Search size={22} />
+            <div className="mb-12 w-full">
+              <h1 className="font-serif text-[36px] font-bold text-[#2C2B2A] tracking-tight mb-8">Sanctuary Workspace</h1>
+              <div className="relative group mb-12">
+                <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none text-[#847E76]">
+                  <Search size={20} />
                 </div>
                 <input
                   type="text"
-                  placeholder="Query litigation matters by Client Name or Case ID..."
-                  className="w-full bg-card-bg border-[1.5px] border-border text-slate placeholder-muted text-lg rounded-2xl pl-16 pr-8 py-5 outline-none focus:border-primary focus:ring-[4px] focus:ring-primary-light transition-all shadow-md group-hover:shadow-lg"
+                  placeholder="Find litigation matters by Client Name or Case ID..."
+                  className="w-full bg-[#F0EEE9] text-[#2C2B2A] placeholder-[#847E76]/70 text-[16px] rounded-xl pl-14 pr-8 py-4 outline-none focus:ring-1 focus:ring-[#7A8B7D] transition-all border-none"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
 
-              {/* Brave Stories Section - THE WOW FACTOR */}
+              {/* Brave Stories Section */}
               <BraveStories />
             </div>
 
             {/* Filter and Metrics Row */}
             {cases.length > 0 && (
-              <div className="flex items-center justify-between mb-6 border-b border-border/50 pb-4 relative z-20">
-                 <div className="text-[14px] text-muted font-medium">{filteredCases.length} matters mapped</div>
+              <div className="flex items-center justify-between mb-8 border-b border-[#E6E2D8] pb-5 relative z-20">
+                 <div className="text-[13px] text-[#847E76] font-medium">{filteredCases.length} matters active</div>
                  <div className="flex items-center gap-3 relative">
-                   <span className="text-[11px] font-bold text-muted uppercase tracking-wider hidden sm:block">Sort Matrix</span>
+                   <span className="text-[10px] font-bold text-[#847E76] uppercase tracking-wider hidden sm:block">Sort Matrix</span>
                    <select 
                      value={sortBy} 
                      onChange={(e) => setSortBy(e.target.value)}
-                     className="bg-card-bg/90 backdrop-blur-sm border border-border text-slate font-medium text-sm rounded-xl py-2 pl-4 pr-10 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none cursor-pointer shadow-sm appearance-none transition-all hover:bg-white"
-                     style={{ backgroundImage: `url('data:image/svg+xml;utf8,<svg fill="none" stroke="%2364748b" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>')`, backgroundSize: '16px', backgroundPosition: 'right 12px center', backgroundRepeat: 'no-repeat' }}
+                     className="bg-[#FCFBF9] border border-[#E6E2D8] text-[#2C2B2A] font-medium text-xs rounded-xl py-2.5 pl-4 pr-10 focus:ring-1 focus:ring-[#7A8B7D] outline-none cursor-pointer appearance-none transition-all hover:bg-[#F9F8F6]"
+                     style={{ backgroundImage: `url('data:image/svg+xml;utf8,<svg fill="none" stroke="%23847e76" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>')`, backgroundSize: '14px', backgroundPosition: 'right 12px center', backgroundRepeat: 'no-repeat' }}
                    >
                      <option value="upcoming">Upcoming Hearing</option>
                      <option value="client">Client Name (A-Z)</option>
@@ -116,51 +116,55 @@ export default function Dashboard() {
             )}
 
           {filteredCases.length === 0 ? (
-            <div className="text-center py-20 bg-card-bg border-2 border-dashed border-border rounded-3xl mx-auto mt-10 shadow-sm max-w-3xl">
-              <div className="w-20 h-20 bg-primary-light text-primary-dark rounded-full flex items-center justify-center mx-auto mb-5 border-[6px] border-white shadow-sm hover:scale-105 transition-transform cursor-pointer">
-                <FolderSearch size={32} />
+            <div className="text-center py-20 bg-[#FCFBF9] border border-[#E6E2D8] rounded-2xl mx-auto mt-10 shadow-none max-w-2xl">
+              <div className="w-16 h-16 bg-[#F0EEE9] text-[#7A8B7D] rounded-xl flex items-center justify-center mx-auto mb-6">
+                <FolderSearch size={28} />
               </div>
-              <h3 className="font-serif text-2xl text-slate font-bold tracking-tight mb-2">No active cases found</h3>
-              <div className="text-[14px] text-muted max-w-md mx-auto leading-relaxed">
+              <h3 className="font-serif text-xl text-[#2C2B2A] font-semibold tracking-tight mb-2">No active cases found</h3>
+              <div className="text-[13px] text-[#847E76] max-w-sm mx-auto leading-relaxed">
                 {searchQuery ? `We couldn't pull any logic files matching "${searchQuery}". Verify the Case ID or Client Name.` : "Your active litigation repository is clean. Start by dropping a New Case using the master protocol button (+)."}
               </div>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 relative z-20">
+            <div className="flex flex-col gap-6 relative z-20">
               {filteredCases.map(c => (
                 <div 
                   key={c._id} 
-                  className="bg-card-bg border border-border rounded-2xl p-5 cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(29,78,216,0.12)] hover:border-primary flex flex-col group"
+                  className="bg-[#FCFBF9] border border-[#E6E2D8] rounded-2xl p-8 cursor-pointer transition-all duration-300 hover:border-[#7A8B7D] hover:shadow-[0_8px_30px_rgb(0,0,0,0.03)] flex flex-col md:flex-row md:items-center justify-between gap-6 group"
                   onClick={() => navigate(`/case/${c.caseId}/session`)}
                 >
-                  <div className="flex justify-between items-start mb-3">
-                    <div className="text-[11px] font-bold tracking-widest text-muted uppercase">{c.caseId}</div>
-                    <div className="flex items-center gap-2">
+                  <div className="flex-1 space-y-3">
+                    <div className="flex items-center gap-3">
+                      <span className="text-[11px] font-mono tracking-wider text-[#847E76] uppercase bg-[#F0EEE9] px-2.5 py-1 rounded-md">{c.caseId}</span>
+                      <span className={`text-[10px] px-2.5 py-1 rounded-md font-bold tracking-wide uppercase ${getBadgeStyle(c.status)}`}>
+                        {c.status}
+                      </span>
+                    </div>
+                    
+                    <div className="font-serif text-[22px] font-bold text-[#2C2B2A] tracking-tight">{c.clientName}</div>
+                    
+                    <div className="text-[13px] text-[#847E76] leading-relaxed">{c.baseLayer?.jurisdiction || 'Jurisdiction Pending'}</div>
+                    
+                    {c.hearingDate && (
+                      <div className="flex items-center gap-2 bg-[#F0EEE9] text-[#7A8B7D] px-3 py-1.5 rounded-lg text-xs font-semibold w-fit mt-2">
+                        🗓 Hearing: {new Date(c.hearingDate).toLocaleDateString()}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="flex md:flex-col items-end justify-between md:justify-center gap-4 border-t md:border-t-0 border-[#E6E2D8] pt-4 md:pt-0">
+                    <div className="text-[11px] text-[#847E76]">Created: {new Date(c.createdAt).toLocaleDateString()}</div>
+                    <div className="flex items-center gap-3">
                       <button 
                         onClick={(e) => { e.stopPropagation(); handleDelete(c.caseId, c.clientName); }}
-                        className="opacity-0 group-hover:opacity-100 p-1.5 text-red-400 hover:text-red-600 hover:bg-red-50 rounded transition-all"
+                        className="opacity-0 group-hover:opacity-100 p-2 text-[#847E76] hover:text-red-600 hover:bg-red-50 rounded-xl transition-all"
                         title="Delete Case"
                       >
-                        <Trash2 size={14} />
+                        <Trash2 size={16} />
                       </button>
-                      <div className={`text-[10px] px-3 py-1 rounded-full font-bold tracking-wide uppercase ${getBadgeStyle(c.status)}`}>
-                        {c.status}
+                      <div className="w-8 h-8 rounded-xl bg-[#F0EEE9] flex items-center justify-center text-[11px] font-bold text-[#7A8B7D] shadow-none">
+                        JS
                       </div>
-                    </div>
-                  </div>
-                  <div className="font-serif text-[20px] font-bold text-charcoal mb-1 tracking-tight">{c.clientName}</div>
-                  <div className="text-[13px] text-muted mb-4 leading-relaxed">{c.baseLayer?.jurisdiction || 'Jurisdiction Pending'}</div>
-                  
-                  {c.hearingDate && (
-                    <div className="flex items-center gap-2 bg-[#FEF3E2] text-[#B35900] px-3 py-1.5 rounded-lg text-xs font-semibold w-fit mb-4">
-                      🗓 Hearing: {new Date(c.hearingDate).toLocaleDateString()}
-                    </div>
-                  )}
-
-                  <div className="flex items-center justify-between pt-3 border-t border-border mt-auto">
-                    <div className="text-[11px] text-muted font-medium">Created: {new Date(c.createdAt).toLocaleDateString()}</div>
-                    <div className="w-7 h-7 rounded-full bg-primary-light flex items-center justify-center text-[11px] font-bold text-primary-dark shadow-inner">
-                      JS
                     </div>
                   </div>
                 </div>
@@ -171,7 +175,7 @@ export default function Dashboard() {
         </div>
 
         {/* Right sidebar — Research Guide */}
-        <div className="w-[280px] border-l border-border bg-card-bg p-5 hidden xl:flex flex-col gap-6 shrink-0 overflow-y-auto">
+        <div className="w-[300px] border-l border-[#E6E2D8] bg-[#FCFBF9] p-6 hidden xl:flex flex-col gap-6 shrink-0 overflow-y-auto">
           <TraumaGuideCarousel />
         </div>
 

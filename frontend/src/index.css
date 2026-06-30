@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,15 +6,15 @@
 
 @layer base {
   :root {
-    --cream: #FDFCF0;
-    --slate: #34495E;
-    --primary: #1D4ED8;
-    --primary-light: #EFF6FF;
-    --primary-dark: #1E3A8A;
-    --conflict: #E67E22;
-    --border: rgba(52,73,94,0.12);
-    --card-bg: #FCFBF4;
-    --muted: #7A8FA6;
+    --cream: #F9F8F6;
+    --slate: #2C2B2A;
+    --primary: #7A8B7D;
+    --primary-light: #F0EEE9;
+    --primary-dark: #68776B;
+    --conflict: #D97706;
+    --border: #E6E2D8;
+    --card-bg: #FCFBF9;
+    --muted: #847E76;
   }
 
   /* Global Scrollbar Hiding */

@@ -7,16 +7,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        cream: '#FDFCF0',
-        slate: '#34495E',
-        charcoal: '#111827',
-        primary: '#1D4ED8',
-        'primary-light': '#EFF6FF',
-        'primary-dark': '#1E3A8A',
-        conflict: '#E67E22',
-        border: 'rgba(52,73,94,0.12)',
-        'card-bg': '#FFFFFF',
-        muted: '#7A8FA6',
+        cream: '#F9F8F6', // App background
+        'card-bg': '#FCFBF9', // Card/Surface background
+        primary: '#7A8B7D', // Sage green accent
+        'primary-dark': '#68776B', // Muted green hover
+        'primary-light': '#F0EEE9', // Muted input/accent light
+        slate: '#2C2B2A', // Primary soft charcoal text
+        charcoal: '#2C2B2A',
+        muted: '#847E76', // Warm taupe secondary text
+        border: '#E6E2D8', // Warm borders
+        conflict: '#D97706',
       },
       animation: {
         marquee: 'marquee 25s linear infinite',
@@ -33,8 +33,8 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['"Outfit"', 'sans-serif'],
-        serif: ['"Playfair Display"', 'serif'],
+        sans: ['"Inter"', 'sans-serif'], // Utilitarian for data/forms
+        serif: ['"Outfit"', 'sans-serif'], // Elegant/soothing for headers/vibe (Outfit is sans-serif but we can use it as our header font)
       }
     },
   },
